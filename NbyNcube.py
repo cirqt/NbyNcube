@@ -4,6 +4,39 @@ class Rubikscube:
         self.grid = self.create_grid(N)
 
     def create_grid(self, N):
+        """
+        Creates a 2D grid representation of an NxN Rubik's cube.
+        Args:
+            N (int): The size of each face of the Rubik's cube.
+        Returns:
+            list: A 2D list representing the grid of the Rubik's cube with each face colored.
+        The grid is organized as follows:
+        - The grid has 4*N rows and 3*N columns.
+        - Each face of the cube is represented by a specific color:
+            'U' (Up face) - White ('W')
+            'D' (Down face) - Yellow ('Y')
+            'F' (Front face) - Green ('G')
+            'B' (Back face) - Blue ('B')
+            'L' (Left face) - Orange ('O')
+            'R' (Right face) - Red ('R')
+        The layout of the grid is:
+            [   U   ][   W   ]
+            [ L F R ][ O G R ]
+            [   B   ][   B   ]
+            [   D   ][   Y   ]
+        Example:
+            For N=2, the grid will look like:
+            [
+            [' ', ' ', 'W', 'W', ' ', ' '],
+            [' ', ' ', 'W', 'W', ' ', ' '],
+            ['O', 'O', 'G', 'G', 'R', 'R'],
+            ['O', 'O', 'G', 'G', 'R', 'R'],
+            [' ', ' ', 'B', 'B', ' ', ' '],
+            [' ', ' ', 'B', 'B', ' ', ' '],
+            [' ', ' ', 'Y', 'Y', ' ', ' '],
+            [' ', ' ', 'Y', 'Y', ' ', ' ']
+            ]
+        """
         rows = 4 * N
         cols = 3 * N
         grid = [[' ' for _ in range(cols)] for _ in range(rows)]
@@ -50,9 +83,22 @@ class Rubikscube:
                 grid[i][j] = colors['D']
         
         return grid
+    
+    #def rotate_row(self, row_index, direction):
+
+    #def rotate_column(self, col_index, direction):
 
 # Example usage:
 N = 5
 rubikscube = Rubikscube(N)
+user_input = input("Enter a command: ")
+commands = user_input.split()
+for command in commands:
+    if command[0] == 'H':
+        row_index = int(command[1:]) - 1
+        rubikscube.rotate_row(row_index, 'right')
+    elif command[0] == 'V':
+        col_index = int(command[1:]) - 1
+        rubikscube.rotate_column(col_index, 'down')
 for row in rubikscube.grid:
     print(row)
