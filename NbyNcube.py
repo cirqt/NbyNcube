@@ -20,10 +20,10 @@ class Rubikscube:
             'L' (Left face) - Orange ('O')
             'R' (Right face) - Red ('R')
         The layout of the grid is:
-            [   U   ][   W   ]
-            [ L F R ][ O G R ]
-            [   B   ][   B   ]
-            [   D   ][   Y   ]
+            [   U   ][   O   ]
+            [ L F R ][ G W B ]
+            [   B   ][   Y   ]
+            [   D   ][   R   ]
         Example:
             For N=2, the grid will look like:
             [
@@ -91,13 +91,17 @@ class Rubikscube:
             row_index (int): The index of the row to rotate.
             direction (str): The direction to rotate ('left' or 'right').
         """
-        print("checkpoint")
         if direction not in ['left', 'right']:
             raise ValueError("Direction must be 'left' or 'right'")
-        print(self.grid[(self.N)-row_index][self.N:2*(self.N)])
-        temp = self.grid[(self.N)-row_index][N:2*(self.N)-1]  # Create a copy of the Nth row starting from the N-th cell to (2*N-1)-th cell
+        temp = self.grid[self.N-row_index-1][self.N:2*(self.N)]
         print(temp)
+        for i in range(0,self.N):
+            self.grid[self.N-row_index][self.N+i] = self.grid[2*self.N-i-1][self.N-row_index]
+            self.grid[2*self.N-i-1][self.N-row_index] = self.grid[self.N*2+row_index-1][self.N*2-i-1]
+            self.grid[self.N*2+row_index-1][self.N*2-i-1] = self.grid[self.N+i][self.N*2+row_index-1]
+            self.grid[self.N+i][self.N*2+row_index-1] = temp[i]
 
+        
     #def rotate_column(self, col_index, direction):
 
 # Example usage:
@@ -108,7 +112,6 @@ commands = user_input.split()
 for command in commands:
     if command[0] == 'H':
         row_index = int(command[1:])
-        print(row_index)
         rubikscube.rotate_row(row_index, 'right')
     elif command[0] == 'V':
         col_index = int(command[1:])
