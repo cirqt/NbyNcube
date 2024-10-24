@@ -43,12 +43,12 @@ class Rubikscube:
         
         # Define colors for each face
         colors = {
-            'U': 'W',  # Up face - White
-            'D': 'Y',  # Down face - Yellow
-            'F': 'G',  # Front face - Green
-            'B': 'B',  # Back face - Blue
-            'L': 'O',  # Left face - Orange
-            'R': 'R'   # Right face - Red
+            'U': 'O',  # Up face - ORANGE
+            'D': 'R',  # Down face - RED
+            'F': 'W',  # Front face - WHITE
+            'B': 'Y',  # Back face - YELLOW
+            'L': 'G',  # Left face - GREEN
+            'R': 'B'   # Right face - BLUE
         }
         
         # Fill the grid with corresponding colors
@@ -84,21 +84,34 @@ class Rubikscube:
         
         return grid
     
-    #def rotate_row(self, row_index, direction):
+    def rotate_row(self, row_index, direction):
+        """
+        Rotates a row of the Rubik's cube grid in the specified direction.
+        Args:
+            row_index (int): The index of the row to rotate.
+            direction (str): The direction to rotate ('left' or 'right').
+        """
+        print("checkpoint")
+        if direction not in ['left', 'right']:
+            raise ValueError("Direction must be 'left' or 'right'")
+        print(self.grid[(self.N)-row_index][self.N:2*(self.N)])
+        temp = self.grid[(self.N)-row_index][N:2*(self.N)-1]  # Create a copy of the Nth row starting from the N-th cell to (2*N-1)-th cell
+        print(temp)
 
     #def rotate_column(self, col_index, direction):
 
 # Example usage:
 N = 5
-rubikscube = Rubikscube(N)
+rubikscube = Rubikscube(3)
 user_input = input("Enter a command: ")
 commands = user_input.split()
 for command in commands:
     if command[0] == 'H':
-        row_index = int(command[1:]) - 1
+        row_index = int(command[1:])
+        print(row_index)
         rubikscube.rotate_row(row_index, 'right')
     elif command[0] == 'V':
-        col_index = int(command[1:]) - 1
+        col_index = int(command[1:])
         rubikscube.rotate_column(col_index, 'down')
 for row in rubikscube.grid:
     print(row)
