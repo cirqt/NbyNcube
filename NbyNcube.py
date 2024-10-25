@@ -114,11 +114,11 @@ class Rubikscube:
             for i in range(self.N):
                 for j in range(self.N):
                     self.grid[self.N+j][self.N*2-i-1] = temp[i][j]
-        
-        temp = [row[self.N:self.N*2] for row in self.grid[self.N*3:self.N*4]]
-        for i in range(self.N):
-            for j in range(self.N):
-                self.grid[self.N*3+i][self.N+j] = temp[self.N-j-1][i]
+        if row_index == self.N:
+            temp = [row[self.N:self.N*2] for row in self.grid[self.N*3:self.N*4]]
+            for i in range(self.N):
+                for j in range(self.N):
+                    self.grid[self.N*3+i][self.N+j] = temp[self.N-j-1][i]
 
         
     #def rotate_column(self, col_index, direction):
