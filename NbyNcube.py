@@ -1,3 +1,5 @@
+import random
+
 class Rubikscube:
     def __init__(self, N):
         self.N = N
@@ -80,7 +82,14 @@ class Rubikscube:
         # Down face
         for i in range(3 * N, 4 * N):
             for j in range(N, 2 * N):
+                #grid[i][j] = random.choice(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
                 grid[i][j] = colors['D']
+                
+                
+                
+                
+        
+        
         
         return grid
     
@@ -93,20 +102,32 @@ class Rubikscube:
         """
         if direction not in ['left', 'right']:
             raise ValueError("Direction must be 'left' or 'right'")
-        temp = self.grid[self.N-row_index-1][self.N:2*(self.N)]
+        temp = self.grid[self.N-row_index][self.N:2*(self.N)]
         print(temp)
         for i in range(0,self.N):
             self.grid[self.N-row_index][self.N+i] = self.grid[2*self.N-i-1][self.N-row_index]
             self.grid[2*self.N-i-1][self.N-row_index] = self.grid[self.N*2+row_index-1][self.N*2-i-1]
             self.grid[self.N*2+row_index-1][self.N*2-i-1] = self.grid[self.N+i][self.N*2+row_index-1]
             self.grid[self.N+i][self.N*2+row_index-1] = temp[i]
+        if row_index == 1:
+            temp = [row[self.N:self.N*2] for row in self.grid[self.N:self.N*2]]
+            for i in range(self.N):
+                for j in range(self.N):
+                    self.grid[self.N+j][self.N*2-i-1] = temp[i][j]
+        
+        temp = [row[self.N:self.N*2] for row in self.grid[self.N*3:self.N*4]]
+        for i in range(self.N):
+            for j in range(self.N):
+                self.grid[self.N*3+i][self.N+j] = temp[self.N-j-1][i]
 
         
     #def rotate_column(self, col_index, direction):
 
 # Example usage:
 N = 5
-rubikscube = Rubikscube(3)
+rubikscube = Rubikscube(5)
+for row in rubikscube.grid:
+    print(row)
 user_input = input("Enter a command: ")
 commands = user_input.split()
 for command in commands:
