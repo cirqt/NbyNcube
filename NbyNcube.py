@@ -46,9 +46,9 @@ class Rubikscube:
         # Define colors for each face
         colors = {
             'U': 'O',  # Up face - ORANGE
-            'D': 'R',  # Down face - RED
+            'D': 'Y',  # Down face - YELLOW
             'F': 'W',  # Front face - WHITE
-            'B': 'Y',  # Back face - YELLOW
+            'B': 'R',  # Back face - RED
             'L': 'G',  # Left face - GREEN
             'R': 'B'   # Right face - BLUE
         }
@@ -85,11 +85,6 @@ class Rubikscube:
                 #grid[i][j] = random.choice(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
                 grid[i][j] = colors['D']
                 
-                
-                
-                
-        
-        
         
         return grid
     
@@ -121,8 +116,34 @@ class Rubikscube:
                     self.grid[self.N*3+i][self.N+j] = temp[self.N-j-1][i]
 
         
-    #def rotate_column(self, col_index, direction):
-
+    def rotate_column(self, col_index, direction):
+        """
+        Rotates a column of the Rubik's cube grid in the specified direction.
+        Args:
+            col_index (int): The index of the column to rotate.
+            direction (str): The direction to rotate ('up' or 'down').
+        """
+        if direction not in ['up', 'down']:
+            raise ValueError("Direction must be 'up' or 'down'")
+        temp = [self.grid[self.N+col_index][i] for i in range(self.N)]
+        print(temp)
+        for i in range(0,self.N):
+            self.grid[self.N+col_index-1][i] = self.grid[4*self.N-col_index][2*self.N-i-1]
+            self.grid[4*self.N-col_index][2*self.N-i-1] = self.grid[self.N+col_index-1][2*self.N+i]
+            self.grid[self.N+col_index-1][2*self.N+i] = self.grid[self.N+col_index-1][self.N+i]
+            self.grid[self.N+col_index-1][self.N+i] = temp[i]
+        """
+        if col_index == 1:
+            temp = [row[self.N:self.N*2] for row in self.grid[self.N:self.N*2]]
+            for i in range(self.N):
+                for j in range(self.N):
+                    self.grid[self.N+j][self.N*2-i-1] = temp[i][j]
+        if col_index == self.N:
+            temp = [row[self.N:self.N*2] for row in self.grid[self.N*3:self.N*4]]
+            for i in range(self.N):
+                for j in range(self.N):
+                    self.grid[self.N*3+i][self.N+j] = temp[self.N-j-1][i]
+        """
 # Example usage:
 N = 5
 rubikscube = Rubikscube(5)
@@ -131,10 +152,10 @@ for row in rubikscube.grid:
 user_input = input("Enter a command: ")
 commands = user_input.split()
 for command in commands:
-    if command[0] == 'H':
+    if command[0] == 'V':
         row_index = int(command[1:])
         rubikscube.rotate_row(row_index, 'right')
-    elif command[0] == 'V':
+    elif command[0] == 'H':
         col_index = int(command[1:])
         rubikscube.rotate_column(col_index, 'down')
 for row in rubikscube.grid:
