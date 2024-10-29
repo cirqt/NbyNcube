@@ -57,7 +57,8 @@ class Rubikscube:
         # Up face
         for i in range(N):
             for j in range(N):
-                grid[i][N + j] = colors['U']
+                grid[i][N+j] = random.choice(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
+                #grid[i][N + j] = colors['U']
         
         # Left face
         for i in range(N, 2 * N):
@@ -132,18 +133,13 @@ class Rubikscube:
             self.grid[4*self.N-col_index][2*self.N-i-1] = self.grid[self.N+col_index-1][2*self.N+i]
             self.grid[self.N+col_index-1][2*self.N+i] = self.grid[self.N+col_index-1][self.N+i]
             self.grid[self.N+col_index-1][self.N+i] = temp[i]
-        """
+        
         if col_index == 1:
-            temp = [row[self.N:self.N*2] for row in self.grid[self.N:self.N*2]]
+            temp = [row[self.N:self.N*2] for row in self.grid[0:self.N]]
             for i in range(self.N):
                 for j in range(self.N):
-                    self.grid[self.N+j][self.N*2-i-1] = temp[i][j]
-        if col_index == self.N:
-            temp = [row[self.N:self.N*2] for row in self.grid[self.N*3:self.N*4]]
-            for i in range(self.N):
-                for j in range(self.N):
-                    self.grid[self.N*3+i][self.N+j] = temp[self.N-j-1][i]
-        """
+                    self.grid[j][self.N*2-i-1] = temp[i][j]
+        
 # Example usage:
 N = 5
 rubikscube = Rubikscube(5)
