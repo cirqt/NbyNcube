@@ -126,7 +126,7 @@ class Rubikscube:
         """
         if direction not in ['up', 'down']:
             raise ValueError("Direction must be 'up' or 'down'")
-        temp = [self.grid[self.N+col_index][i] for i in range(self.N)]
+        temp = [self.grid[self.N+col_index-1][i] for i in range(self.N)]
         print(temp)
         for i in range(0,self.N):
             self.grid[self.N+col_index-1][i] = self.grid[4*self.N-col_index][2*self.N-i-1]
@@ -139,6 +139,16 @@ class Rubikscube:
             for i in range(self.N):
                 for j in range(self.N):
                     self.grid[j][self.N*2-i-1] = temp[i][j]
+        
+        if col_index == self.N:
+            temp = [row[self.N:self.N*2] for row in self.grid[self.N*3:self.N*4]]
+            for i in range(self.N):
+                for j in range(self.N):
+                    self.grid[self.N*3+i][self.N+j] = temp[self.N-j-1][i]
+        print(self.N)    
+        print(col_index)
+        temp = [self.grid[self.N+col_index][i] for i in range(self.N)]
+        print(temp)
         
 # Example usage:
 N = 5
