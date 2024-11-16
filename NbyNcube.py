@@ -135,16 +135,18 @@ class Rubikscube:
             self.grid[self.N+col_index-1][self.N+i] = temp[i]
         
         if col_index == 1:
-            temp = [row[self.N:self.N*2] for row in self.grid[0:self.N]]
-            for i in range(self.N):
-                for j in range(self.N):
-                    self.grid[j][self.N*2-i-1] = temp[i][j]
+            for k in range(3):
+                temp = [row[self.N:self.N*2] for row in self.grid[0:self.N]]
+                for i in range(self.N):
+                    for j in range(self.N):
+                        self.grid[j][self.N*2-i-1] = temp[i][j]
         
         if col_index == self.N:
-            temp = [row[self.N:self.N*2] for row in self.grid[self.N*3:self.N*4]]
+            temp = [row[self.N:self.N*2] for row in self.grid[self.N:self.N*2]]
             for i in range(self.N):
                 for j in range(self.N):
-                    self.grid[self.N*3+i][self.N+j] = temp[self.N-j-1][i]
+                    self.grid[self.N+j][self.N*2-i-1] = temp[i][j]
+
         print(self.N)    
         print(col_index)
         temp = [self.grid[self.N+col_index][i] for i in range(self.N)]
