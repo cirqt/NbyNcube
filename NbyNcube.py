@@ -107,17 +107,17 @@ class Rubikscube:
             self.grid[self.N+i][self.N*2+row_index-1] = temp[i]
 
         if row_index == 1: #rotates the top face
-            for k in range(3):
-                temp = [row[self.N:self.N*2] for row in self.grid[self.N:self.N*2]]
-                for i in range(self.N):
-                    for j in range(self.N):
-                        self.grid[self.N+j][self.N*2-i-1] = temp[i][j]
-
-        if row_index == self.N: #rotates the bottom face
-            temp = [row[self.N:self.N*2] for row in self.grid[self.N*3:self.N*4]]
+            temp = [row[self.N:self.N*2] for row in self.grid[self.N:self.N*2]]
             for i in range(self.N):
                 for j in range(self.N):
-                    self.grid[self.N*3+i][self.N+j] = temp[self.N-j-1][i]
+                    self.grid[self.N+j][self.N*2-i-1] = temp[i][j]
+
+        if row_index == self.N: #rotates the bottom face
+            for k in range(3):
+                temp = [row[self.N:self.N*2] for row in self.grid[self.N*3:self.N*4]]
+                for i in range(self.N):
+                    for j in range(self.N):
+                        self.grid[self.N*3+i][self.N+j] = temp[self.N-j-1][i]
 
         
     def rotate_column(self, col_index, direction):
