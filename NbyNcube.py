@@ -46,11 +46,11 @@ class Rubikscube:
         # Define colors for each face
         colors = {
             'U': 'O',  # Up face - ORANGE
-            'D': 'Y',  # Down face - YELLOW
-            'F': 'W',  # Front face - WHITE
+            'D': 'B',  # Down face - BLUE
+            'F': 'G',  # Front face - GREEN
             'B': 'R',  # Back face - RED
-            'L': 'G',  # Left face - GREEN
-            'R': 'B'   # Right face - BLUE
+            'L': 'Y',  # Left face - YELLOW
+            'R': 'W'   # Right face - WHITE
         }
         
         # Fill the grid with corresponding colors
@@ -107,10 +107,11 @@ class Rubikscube:
             self.grid[self.N+i][self.N*2+row_index-1] = temp[i]
 
         if row_index == 1: #rotates the top face
-            temp = [row[self.N:self.N*2] for row in self.grid[self.N:self.N*2]]
-            for i in range(self.N):
-                for j in range(self.N):
-                    self.grid[self.N+j][self.N*2-i-1] = temp[i][j]
+            for k in range(3):
+                temp = [row[self.N:self.N*2] for row in self.grid[self.N:self.N*2]]
+                for i in range(self.N):
+                    for j in range(self.N):
+                        self.grid[self.N+j][self.N*2-i-1] = temp[i][j]
 
         if row_index == self.N: #rotates the bottom face
             temp = [row[self.N:self.N*2] for row in self.grid[self.N*3:self.N*4]]
@@ -161,6 +162,9 @@ for row in rubikscube.grid:
     print(row)
 user_input = input("Enter a command: ")
 commands = user_input.split()
+
+
+
 for command in commands:
     if command[0] == 'V':
         row_index = int(command[1:])
